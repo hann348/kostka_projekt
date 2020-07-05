@@ -1,0 +1,55 @@
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\bin\Debug\Cube1.exe.config
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\bin\Debug\Cube1.exe
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\bin\Debug\Cube1.pdb
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\Cube1.csprojResolveAssemblyReference.cache
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\MainWindow.baml
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\MainWindow.g.cs
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\App.g.cs
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\Cube1_MarkupCompile.cache
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\Cube1.g.resources
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\Cube1.Properties.Resources.resources
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\Cube1.csproj.GenerateResource.Cache
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\Cube1.exe
+c:\users\mike.james\documents\visual studio 2013\Projects\Cube1\Cube1\obj\Debug\Cube1.pdb
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\bin\Debug\Cube1.exe.config
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\bin\Debug\Cube1.exe
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\bin\Debug\Cube1.pdb
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\Cube1.csprojAssemblyReference.cache
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\MainWindow.baml
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\MainWindow.g.cs
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\App.g.cs
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\Cube1_MarkupCompile.cache
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\Cube1.g.resources
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\Cube1.Properties.Resources.resources
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\Cube1.csproj.GenerateResource.cache
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\Cube1.csproj.CoreCompileInputs.cache
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\Cube1.exe
+C:\Users\Hanna Wędrychowicz\Desktop\Cube1\Cube1\obj\Debug\Cube1.pdb
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\bin\Debug\Cube1.exe.config
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\bin\Debug\Cube1.exe
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\bin\Debug\Cube1.pdb
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\Cube1.csprojAssemblyReference.cache
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\MainWindow.baml
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\MainWindow.g.cs
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\App.g.cs
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\Cube1_MarkupCompile.cache
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\Cube1.g.resources
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\Cube1.Properties.Resources.resources
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\Cube1.csproj.GenerateResource.cache
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\Cube1.csproj.CoreCompileInputs.cache
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\Cube1.exe
+C:\Users\Hanna Wędrychowicz\source\repos\Cube1\Cube1\obj\Debug\Cube1.pdb
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\bin\Debug\Cube1.exe.config
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\bin\Debug\Cube1.exe
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\bin\Debug\Cube1.pdb
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\Cube1.csprojAssemblyReference.cache
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\MainWindow.baml
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\MainWindow.g.cs
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\App.g.cs
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\Cube1_MarkupCompile.cache
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\Cube1.g.resources
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\Cube1.Properties.Resources.resources
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\Cube1.csproj.GenerateResource.cache
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\Cube1.csproj.CoreCompileInputs.cache
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\Cube1.exe
+C:\Users\Hanna Wędrychowicz\source\repos\projekt C# 2\Cube1\Cube1\obj\Debug\Cube1.pdb
