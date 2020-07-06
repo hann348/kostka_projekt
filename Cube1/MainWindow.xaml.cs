@@ -17,6 +17,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Media.Animation;
 using System.Configuration;
 
+
 namespace Cube1
 {
 
@@ -121,9 +122,9 @@ namespace Cube1
             oy_3D = new GeometryModel3D();
             oz_3D = new GeometryModel3D();
 
-            Prism ox = new Prism(0.0, 0.0, 0.0, 1.00, 0.01, 0.01);
-            Prism oy = new Prism(0.0, 0.0, 0.0, 0.01, 1.00, 0.01);
-            Prism oz = new Prism(0.0, 0.0, 0.0, 0.01, 0.01, 1.00);
+            Prism ox = new Prism(0.0, 0.0, 0.0, 3.00, 0.01, 0.01);
+            Prism oy = new Prism(0.0, 0.0, 0.0, 0.01, 3.00, 0.01);
+            Prism oz = new Prism(0.0, 0.0, 0.0, 0.01, 0.01, 3.00);
 
             ox_3D.Geometry = ox.prism_mesh;
             oy_3D.Geometry = oy.prism_mesh;
@@ -133,52 +134,165 @@ namespace Cube1
             oz_3D.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Blue));
             // ===============================================================================
 
-            SquareCentred kwadracik_1 = new SquareCentred(1.00, 0.50, 1.00, 1, "xy");
-            SquareCentred kwadracik_2 = new SquareCentred(1.00, 1.00, 0.50, 1, "xz");
-            SquareCentred kwadracik_3 = new SquareCentred(0.50, 0.50, 0.50, 1, "zy");
 
-           GeometryModel3D Square_1 = new GeometryModel3D();
-            Square_1.Geometry = kwadracik_1.square_mesh;
-            Square_1.Material = new DiffuseMaterial(
-               new SolidColorBrush(Colors.Indigo));
-            Square_1.BackMaterial = new DiffuseMaterial(
-               new SolidColorBrush(Colors.Indigo));
+            List<GeometryModel3D> squares = new List<GeometryModel3D>();
+            for(int ctr = 0; ctr < 9; ctr++)
+            {
+                squares.Add(new GeometryModel3D());
+            }
 
-            GeometryModel3D Square_2 = new GeometryModel3D();
-            Square_2.Geometry = kwadracik_2.square_mesh;
-            Square_2.Material = new DiffuseMaterial(
-               new SolidColorBrush(Colors.Gold));
-            Square_2.BackMaterial = new DiffuseMaterial(
-               new SolidColorBrush(Colors.Gold));
+            double xx_gora = -0.35;
+            double yy_gora = -0.35;
+            for (int ctr = 1; ctr < 10; ctr++)
+            {
+                squares[ctr-1].Material = new DiffuseMaterial(new SolidColorBrush(Colors.SlateBlue));
+                squares[ctr-1].BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.SlateBlue));
+                squares[ctr-1].Geometry = new SquareCentred(xx_gora, yy_gora, 0.5, 0.3, "xy").square_mesh;
+                if (ctr % 3 == 0)
+                {
+                    yy_gora = -0.35;
+                    xx_gora += 0.35;
+                    continue;
+                }
+                yy_gora += 0.35;
+            }
 
-            GeometryModel3D Square_3 = new GeometryModel3D();
-            Square_3.Geometry = kwadracik_3.square_mesh;
-            Square_3.Material = new DiffuseMaterial(
-               new SolidColorBrush(Colors.Beige));
-            Square_3.BackMaterial = new DiffuseMaterial(
-               new SolidColorBrush(Colors.Beige));
+            for (int ctr = 0; ctr < 9; ctr++)
+            {
+                squares.Add(new GeometryModel3D());
+            }
+
+            double zz_przod = -0.35;
+            double yy_przod = -0.35;
+            for (int ctr = 10; ctr < 19; ctr++)
+            {
+                squares[ctr - 1].Material = new DiffuseMaterial(new SolidColorBrush(Colors.DarkOliveGreen));
+                squares[ctr - 1].BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.DarkOliveGreen));
+                squares[ctr - 1].Geometry = new SquareCentred( 0.5, yy_przod, zz_przod, 0.3, "zy").square_mesh;
+                if (ctr % 3 == 0)
+                {
+                    yy_przod = -0.35;
+                    zz_przod += 0.35;
+                    continue;
+                }
+                yy_przod += 0.35;
+            }
+
+            for (int ctr = 0; ctr < 9; ctr++)
+            {
+                squares.Add(new GeometryModel3D());
+            }
+
+            double zz_prawa = -0.35;
+            double xx_prawa = -0.35;
+            for (int ctr = 19; ctr < 28; ctr++)
+            {
+                squares[ctr - 1].Material = new DiffuseMaterial(new SolidColorBrush(Colors.DarkGoldenrod));
+                squares[ctr - 1].BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.DarkGoldenrod));
+                squares[ctr - 1].Geometry = new SquareCentred( xx_prawa, 0.5, zz_prawa, 0.3, "xz").square_mesh;
+                if (ctr % 3 == 0)
+                {
+                    zz_prawa = -0.35;
+                    xx_prawa += 0.35;
+                    continue;
+                }
+                zz_prawa += 0.35;
+            }
+
+            for (int ctr = 0; ctr < 9; ctr++)
+            {
+                squares.Add(new GeometryModel3D());
+            }
+
+            double xx_spod = -0.35;
+            double yy_spod = -0.35;
+            for (int ctr = 28; ctr < 37; ctr++)
+            {
+                squares[ctr - 1].Material = new DiffuseMaterial(new SolidColorBrush(Colors.Indigo));
+                squares[ctr - 1].BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Indigo));
+                squares[ctr - 1].Geometry = new SquareCentred(xx_spod, yy_spod, -0.5, 0.3, "xy").square_mesh;
+                if (ctr % 3 == 0)
+                {
+                    yy_spod = -0.35;
+                    xx_spod += 0.35;
+                    continue;
+                }
+                yy_spod += 0.35;
+            }
+
+            for (int ctr = 0; ctr < 9; ctr++)
+            {
+                squares.Add(new GeometryModel3D());
+            }
+
+            double zz_tyl = -0.35;
+            double yz_tyl = -0.35;
+            for (int ctr = 37; ctr < 46; ctr++)
+            {
+                squares[ctr - 1].Material = new DiffuseMaterial(new SolidColorBrush(Colors.DodgerBlue));
+                squares[ctr - 1].BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.DodgerBlue));
+                squares[ctr - 1].Geometry = new SquareCentred(-0.5, yz_tyl, zz_tyl, 0.3, "zy").square_mesh;
+                if (ctr % 3 == 0)
+                {
+                    yz_tyl = -0.35;
+                    zz_tyl += 0.35;
+                    continue;
+                }
+                yz_tyl += 0.35;
+            }
+
+            for (int ctr = 0; ctr < 9; ctr++)
+            {
+                squares.Add(new GeometryModel3D());
+            }
+
+            double zz_lewa = -0.35;
+            double xx_lewa = -0.35;
+            for (int ctr = 46; ctr < 55; ctr++)
+            {
+                squares[ctr - 1].Material = new DiffuseMaterial(new SolidColorBrush(Colors.DarkRed));
+                squares[ctr - 1].BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.DarkRed));
+                squares[ctr - 1].Geometry = new SquareCentred(xx_lewa, -0.5, zz_lewa, 0.3, "xz").square_mesh;
+                if (ctr % 3 == 0)
+                {
+                    zz_lewa = -0.35;
+                    xx_lewa += 0.35;
+                    continue;
+                }
+                zz_lewa += 0.35;
+            }
 
 
-            DirectionalLight DirLight1 = new DirectionalLight();
-            DirLight1.Color = Colors.White;
-            DirLight1.Direction = new Vector3D(-1, -1, -1);
-            
+            DirectionalLight DirLightZ = new DirectionalLight();
+            DirLightZ.Color = Colors.White;
+            DirLightZ.Direction = new Vector3D(0, 0, -1);
+            DirectionalLight DirLightY = new DirectionalLight();
+            DirLightY.Color = Colors.White;
+            DirLightY.Direction = new Vector3D(0, -1, 0);
+            DirectionalLight DirLightX = new DirectionalLight();
+            DirLightX.Color = Colors.White;
+            DirLightX.Direction = new Vector3D(-1, 0, 0);
+
+
             PerspectiveCamera Camera1 = new PerspectiveCamera();
             Camera1.FarPlaneDistance = 20;
             Camera1.NearPlaneDistance = 1;
             Camera1.FieldOfView = 45;
-            Camera1.Position = new Point3D(2, 2, 2);
-            Camera1.LookDirection = new Vector3D(-2, -2, -2);
+            Camera1.Position = new Point3D(3, 3, 3);
+            Camera1.LookDirection = new Vector3D(-3, -3, -3);
             Camera1.UpDirection = new Vector3D(0, 0, 1);
             
             Model3DGroup modelGroup = new Model3DGroup();
-            modelGroup.Children.Add(ox_3D);
+            /*modelGroup.Children.Add(ox_3D);
             modelGroup.Children.Add(oy_3D);
-            modelGroup.Children.Add(oz_3D);
-            modelGroup.Children.Add(Square_1);
-            modelGroup.Children.Add(Square_2);
-            modelGroup.Children.Add(Square_3);
-            modelGroup.Children.Add(DirLight1);
+            modelGroup.Children.Add(oz_3D);*/
+            foreach(GeometryModel3D m in squares)
+            {
+                modelGroup.Children.Add(m);
+            }
+            modelGroup.Children.Add(DirLightX);
+            modelGroup.Children.Add(DirLightY);
+            modelGroup.Children.Add(DirLightZ);
             ModelVisual3D modelsVisual = new ModelVisual3D();
             modelsVisual.Content = modelGroup;
             
@@ -196,10 +310,17 @@ namespace Cube1
             AxisAngleRotation3D axis = new AxisAngleRotation3D(
                   new Vector3D(0, 0, 1), 0);
             RotateTransform3D Rotate = new RotateTransform3D(axis);
+            
+            foreach(GeometryModel3D n in squares) 
+            {
+               n.Transform = Rotate;
+            }
+            /*
             Square_1.Transform = Rotate;
             Square_2.Transform = Rotate;
             Square_3.Transform = Rotate;
-            /*
+            Square_4.Transform = Rotate;
+            
             ox_3D.Transform = Rotate;
             oy_3D.Transform = Rotate;
             oz_3D.Transform = Rotate;
