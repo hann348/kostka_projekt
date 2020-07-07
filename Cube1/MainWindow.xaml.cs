@@ -112,9 +112,61 @@ namespace Cube1
             return cube;            
         }
 
+        private PerspectiveCamera Camera1 = null;
+        private Point3D camPos;
+        private Vector3D lookDir, upDir;
+        private double azm, elev;
+
+        private void CamSliderHorizontal_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (Camera1 == null)
+            {
+                return;
+            }
+            azm = e.NewValue;
+            refresh_camera();
+
+        }
+        private void refresh_camera()
+        {
+            camPos.X = 5.2 * Math.Sin(elev * (Math.PI / 180)) * Math.Cos(azm * (Math.PI / 180));
+            camPos.Y = 5.2 * Math.Sin(elev * (Math.PI / 180)) * Math.Sin(azm * (Math.PI / 180));
+            camPos.Z = 5.2 * Math.Cos(elev * (Math.PI / 180));
+            lookDir.X = -camPos.X;
+            lookDir.Y = -camPos.Y;
+            lookDir.Z = -camPos.Z;
+            upDir.X = 0;
+            upDir.Y = 0;
+            if(elev < 0)
+            {
+                upDir.Z = -1.0;
+            }
+            else 
+            {
+                upDir.Z = 1.0;
+            }
+            Camera1.Position = camPos;
+            Camera1.LookDirection = lookDir;
+            Camera1.UpDirection = upDir;
+        }
+
+        private void CamSliderVertical_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (Camera1 == null)
+            {
+                return;
+            }
+            elev = e.NewValue;
+            refresh_camera();
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            camPos = new Point3D(0, 0, 0);
+            lookDir = new Vector3D(0, 0, 0);
+            upDir = new Vector3D(0, 0, 0);
+            azm = 45;
+            elev = 45;
 
             // ==== XYZ Axes ==================================================================
             GeometryModel3D ox_3D, oy_3D, oz_3D;
@@ -274,18 +326,31 @@ namespace Cube1
             DirLightX.Direction = new Vector3D(-1, 0, 0);
 
 
-            PerspectiveCamera Camera1 = new PerspectiveCamera();
+            DirectionalLight DirLightZ2 = new DirectionalLight();
+            DirLightZ2.Color = Colors.White;
+            DirLightZ2.Direction = new Vector3D(0, 0, 1);
+            DirectionalLight DirLightY2 = new DirectionalLight();
+            DirLightY2.Color = Colors.White;
+            DirLightY2.Direction = new Vector3D(0, 1, 0);
+            DirectionalLight DirLightX2 = new DirectionalLight();
+            DirLightX2.Color = Colors.White;
+            DirLightX2.Direction = new Vector3D(1, 0, 0);
+
+
+
+            Camera1 = new PerspectiveCamera();
             Camera1.FarPlaneDistance = 20;
             Camera1.NearPlaneDistance = 1;
-            Camera1.FieldOfView = 45;
-            Camera1.Position = new Point3D(3, 3, 3);
-            Camera1.LookDirection = new Vector3D(-3, -3, -3);
-            Camera1.UpDirection = new Vector3D(0, 0, 1);
+            Camera1.FieldOfView = 40;
+            //Camera1.Position = new Point3D(3, 3, 3);
+            //Camera1.LookDirection = new Vector3D(-3, -3, -3);
+            //Camera1.UpDirection = new Vector3D(0, 0, 1);
+            refresh_camera();
             
             Model3DGroup modelGroup = new Model3DGroup();
-            /*modelGroup.Children.Add(ox_3D);
-            modelGroup.Children.Add(oy_3D);
-            modelGroup.Children.Add(oz_3D);*/
+           // modelGroup.Children.Add(ox_3D);
+           // modelGroup.Children.Add(oy_3D);
+           // modelGroup.Children.Add(oz_3D);
             foreach(GeometryModel3D m in squares)
             {
                 modelGroup.Children.Add(m);
@@ -293,6 +358,9 @@ namespace Cube1
             modelGroup.Children.Add(DirLightX);
             modelGroup.Children.Add(DirLightY);
             modelGroup.Children.Add(DirLightZ);
+            modelGroup.Children.Add(DirLightX2);
+            modelGroup.Children.Add(DirLightY2);
+            modelGroup.Children.Add(DirLightZ2);
             ModelVisual3D modelsVisual = new ModelVisual3D();
             modelsVisual.Content = modelGroup;
             
@@ -300,8 +368,8 @@ namespace Cube1
             myViewport.Camera = Camera1;
             myViewport.Children.Add(modelsVisual);
             this.Canvas1.Children.Add(myViewport);
-            myViewport.Height = 500;
-            myViewport.Width = 500;
+            myViewport.Height = 400;
+            myViewport.Width = 400;
             Canvas.SetTop(myViewport, 0);
             Canvas.SetLeft(myViewport, 0);
             this.Width = myViewport.Width;
@@ -313,7 +381,7 @@ namespace Cube1
             
             foreach(GeometryModel3D n in squares) 
             {
-               n.Transform = Rotate;
+               // n.Transform = Rotate;
             }
             /*
             Square_1.Transform = Rotate;
@@ -342,6 +410,8 @@ namespace Cube1
             RotCube.Children.Add(RotAngle);
             RotCube.Begin(Canvas1);
         }
+
+
     }
 
 }
