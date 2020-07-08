@@ -115,7 +115,7 @@ namespace Cube1
         private PerspectiveCamera Camera1 = null;
         private Point3D camPos;
         private Vector3D lookDir, upDir;
-        private double azm, elev;
+        private double azm, elev, depth;
 
         private void CamSliderHorizontal_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -129,9 +129,9 @@ namespace Cube1
         }
         private void refresh_camera()
         {
-            camPos.X = 5.2 * Math.Sin(elev * (Math.PI / 180)) * Math.Cos(azm * (Math.PI / 180));
-            camPos.Y = 5.2 * Math.Sin(elev * (Math.PI / 180)) * Math.Sin(azm * (Math.PI / 180));
-            camPos.Z = 5.2 * Math.Cos(elev * (Math.PI / 180));
+            camPos.X = depth * Math.Sin(elev * (Math.PI / 180)) * Math.Cos(azm * (Math.PI / 180));
+            camPos.Y = depth * Math.Sin(elev * (Math.PI / 180)) * Math.Sin(azm * (Math.PI / 180));
+            camPos.Z = depth * Math.Cos(elev * (Math.PI / 180));
             lookDir.X = -camPos.X;
             lookDir.Y = -camPos.Y;
             lookDir.Z = -camPos.Z;
@@ -148,6 +148,16 @@ namespace Cube1
             Camera1.Position = camPos;
             Camera1.LookDirection = lookDir;
             Camera1.UpDirection = upDir;
+        }
+
+        private void Zoom_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (Camera1 == null)
+            {
+                return;
+            }
+            depth = e.NewValue;
+            refresh_camera();
         }
 
         private void CamSliderVertical_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -167,6 +177,7 @@ namespace Cube1
             upDir = new Vector3D(0, 0, 0);
             azm = 45;
             elev = 45;
+            depth = 5.2;
 
             // ==== XYZ Axes ==================================================================
             GeometryModel3D ox_3D, oy_3D, oz_3D;
@@ -381,7 +392,7 @@ namespace Cube1
             
             foreach(GeometryModel3D n in squares) 
             {
-               // n.Transform = Rotate;
+                n.Transform = Rotate;
             }
             /*
             Square_1.Transform = Rotate;

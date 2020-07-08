@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Rubik's Cube" Height="600" Width="600" Loaded="Window_Loaded">
     <Grid>
-        <Canvas x:Name="Canvas1" HorizontalAlignment="Center" Height="400" Margin="20,20,0,0" VerticalAlignment="Top" Width="400"/>
+        <Canvas x:Name="Canvas1" HorizontalAlignment="Center" Height="504" Margin="10,10,10,10" VerticalAlignment="Top" Width="400"/>
         <Slider x:Name="CamSliderHorizontal" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="20" Width="300" ValueChanged="CamSliderHorizontal_Changed" Minimum="-180" Maximum="180" Value="45" />
-        <Slider x:Name="CamSliderVertical"  HorizontalAlignment="Right" Margin="0,20,10,0" VerticalAlignment="Top" Height="300" Orientation="Vertical" Minimum="-180" Maximum="180" Value="45" ValueChanged="CamSliderVertical_Changed"/>
+        <Slider x:Name="CamSliderVertical"  HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center" Height="300" Orientation="Vertical" Minimum="-180" Maximum="180" Value="45" ValueChanged="CamSliderVertical_Changed"/>
+        <Slider x:Name="ZoomSlider" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="20" Width="300" Orientation="Horizontal" Minimum="1.3" Maximum="10" Value="5.2" ValueChanged="Zoom_Changed"/>
     </Grid>
 </Window>
