@@ -112,6 +112,8 @@ namespace Cube1
             return cube;            
         }
 
+        private GeometryModel3D ox_3D=null, oy_3D=null, oz_3D=null;
+        private Model3DGroup all_to_show;
         private PerspectiveCamera Camera1 = null;
         private Point3D camPos;
         private Vector3D lookDir, upDir;
@@ -150,9 +152,25 @@ namespace Cube1
             Camera1.UpDirection = upDir;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ox_3D != null && oy_3D != null && oz_3D != null)
+            {
+                all_to_show.Children.Add(ox_3D);
+                all_to_show.Children.Add(oy_3D);
+                all_to_show.Children.Add(oz_3D);
+            }
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (ox_3D != null && oy_3D != null && oz_3D != null)
+            {
+                all_to_show.Children.Remove(ox_3D);
+                all_to_show.Children.Remove(oy_3D);
+                all_to_show.Children.Remove(oz_3D);
+            }
         }
 
         private void Zoom_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -185,7 +203,6 @@ namespace Cube1
             depth = 5.2;
 
             // ==== XYZ Axes ==================================================================
-            GeometryModel3D ox_3D, oy_3D, oz_3D;
             ox_3D = new GeometryModel3D();
             oy_3D = new GeometryModel3D();
             oz_3D = new GeometryModel3D();
@@ -363,22 +380,22 @@ namespace Cube1
             //Camera1.UpDirection = new Vector3D(0, 0, 1);
             refresh_camera();
             
-            Model3DGroup modelGroup = new Model3DGroup();
-            //modelGroup.Children.Add(ox_3D);
-            //modelGroup.Children.Add(oy_3D);
-            //modelGroup.Children.Add(oz_3D);
-            foreach(GeometryModel3D m in squares)
+            all_to_show = new Model3DGroup();
+            all_to_show.Children.Add(ox_3D);
+            all_to_show.Children.Add(oy_3D);
+            all_to_show.Children.Add(oz_3D);
+            foreach (GeometryModel3D m in squares)
             {
-                modelGroup.Children.Add(m);
+                all_to_show.Children.Add(m);
             }
-            modelGroup.Children.Add(DirLightX);
-            modelGroup.Children.Add(DirLightY);
-            modelGroup.Children.Add(DirLightZ);
-            modelGroup.Children.Add(DirLightX2);
-            modelGroup.Children.Add(DirLightY2);
-            modelGroup.Children.Add(DirLightZ2);
+            all_to_show.Children.Add(DirLightX);
+            all_to_show.Children.Add(DirLightY);
+            all_to_show.Children.Add(DirLightZ);
+            all_to_show.Children.Add(DirLightX2);
+            all_to_show.Children.Add(DirLightY2);
+            all_to_show.Children.Add(DirLightZ2);
             ModelVisual3D modelsVisual = new ModelVisual3D();
-            modelsVisual.Content = modelGroup;
+            modelsVisual.Content = all_to_show;
             
             Viewport3D myViewport = new Viewport3D();
             myViewport.Camera = Camera1;
@@ -397,7 +414,7 @@ namespace Cube1
             
             foreach(GeometryModel3D n in squares) 
             {
-                n.Transform = Rotate;
+              //  n.Transform = Rotate;
             }
             /*
             Square_1.Transform = Rotate;
