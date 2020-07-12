@@ -150,6 +150,11 @@ namespace Cube1
             Camera1.UpDirection = upDir;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void Zoom_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (Camera1 == null)
@@ -359,9 +364,9 @@ namespace Cube1
             refresh_camera();
             
             Model3DGroup modelGroup = new Model3DGroup();
-           // modelGroup.Children.Add(ox_3D);
-           // modelGroup.Children.Add(oy_3D);
-           // modelGroup.Children.Add(oz_3D);
+            //modelGroup.Children.Add(ox_3D);
+            //modelGroup.Children.Add(oy_3D);
+            //modelGroup.Children.Add(oz_3D);
             foreach(GeometryModel3D m in squares)
             {
                 modelGroup.Children.Add(m);
@@ -379,9 +384,9 @@ namespace Cube1
             myViewport.Camera = Camera1;
             myViewport.Children.Add(modelsVisual);
             this.Canvas1.Children.Add(myViewport);
-            myViewport.Height = 400;
-            myViewport.Width = 400;
-            Canvas.SetTop(myViewport, 0);
+            myViewport.Height = 500;
+            myViewport.Width = 500;
+            Canvas.SetTop(myViewport, -50);
             Canvas.SetLeft(myViewport, 0);
             this.Width = myViewport.Width;
             this.Height = myViewport.Height;
