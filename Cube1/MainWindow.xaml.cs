@@ -111,13 +111,26 @@ namespace Cube1
             cube.TriangleIndices = Triangles;
             return cube;            
         }
-
+        private List<GeometryModel3D> squares;
         private GeometryModel3D ox_3D=null, oy_3D=null, oz_3D=null;
-        private Model3DGroup all_to_show;
+        private Model3DGroup all_to_show, cube_squares;
         private PerspectiveCamera Camera1 = null;
         private Point3D camPos;
         private Vector3D lookDir, upDir;
         private double azm, elev, depth;
+
+        private double point_to_plane_dist(double A, double B, double C, double D, double x, double y, double z)
+        {
+            double res, top, bottom;
+
+            top = (A * x) + (B * y) + (C * z) + D;
+            bottom = Math.Sqrt((A * A) + (B * B) + (C * C));
+            res = top / bottom;
+            
+            return Math.Abs(res);
+        }
+
+
 
         private void CamSliderHorizontal_Changed(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -152,6 +165,108 @@ namespace Cube1
             Camera1.UpDirection = upDir;
         }
 
+        private void OX_minus_left_click(object sender, RoutedEventArgs e)
+        {
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                // from stack exchange: XXX
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(1, 0, 0, 0.35, cP.X, cP.Y, cP.Z);
+                if(currDist <= 0.155)
+                {
+                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                }
+            }
+        }
+
+        private void OX_minus_right_click(object sender, RoutedEventArgs e)
+        {
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(1, 0, 0, 0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.155)
+                {
+                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                }
+            }
+        }
+
+        private void OX_zero_left_click(object sender, RoutedEventArgs e)
+        {
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(1, 0, 0, 0, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.155)
+                {
+                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                }
+            }
+        }
+
+        private void OX_zero_right_click(object sender, RoutedEventArgs e)
+        {
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(1, 0, 0, 0, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.155)
+                {
+                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                }
+            }
+        }
+
+        private void OX_plus_left_click(object sender, RoutedEventArgs e)
+        {
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(1, 0, 0, -0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.155)
+                {
+                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                }
+            }
+        }
+
+        private void OX_plus_right_click(object sender, RoutedEventArgs e)
+        {
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(1, 0, 0, -0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.155)
+                {
+                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                }
+            }
+        }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -220,7 +335,7 @@ namespace Cube1
             // ===============================================================================
 
 
-            List<GeometryModel3D> squares = new List<GeometryModel3D>();
+            squares = new List<GeometryModel3D>();
             for(int ctr = 0; ctr < 9; ctr++)
             {
                 squares.Add(new GeometryModel3D());
@@ -379,21 +494,23 @@ namespace Cube1
             //Camera1.LookDirection = new Vector3D(-3, -3, -3);
             //Camera1.UpDirection = new Vector3D(0, 0, 1);
             refresh_camera();
-            
+
+            cube_squares = new Model3DGroup();
+            foreach (GeometryModel3D m in squares)
+            {
+                cube_squares.Children.Add(m);
+            }
             all_to_show = new Model3DGroup();
             all_to_show.Children.Add(ox_3D);
             all_to_show.Children.Add(oy_3D);
             all_to_show.Children.Add(oz_3D);
-            foreach (GeometryModel3D m in squares)
-            {
-                all_to_show.Children.Add(m);
-            }
             all_to_show.Children.Add(DirLightX);
             all_to_show.Children.Add(DirLightY);
             all_to_show.Children.Add(DirLightZ);
             all_to_show.Children.Add(DirLightX2);
             all_to_show.Children.Add(DirLightY2);
             all_to_show.Children.Add(DirLightZ2);
+            all_to_show.Children.Add(cube_squares);
             ModelVisual3D modelsVisual = new ModelVisual3D();
             modelsVisual.Content = all_to_show;
             
