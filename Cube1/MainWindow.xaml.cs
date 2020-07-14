@@ -58,7 +58,7 @@ namespace Cube1
 
 
 
-        MeshGeometry3D MCube(double cx=0.0, double cy=0.0, double cz=0.0, double s=1.0)
+        MeshGeometry3D MCube(double cx = 0.0, double cy = 0.0, double cz = 0.0, double s = 1.0)
         {
             double r = s / 2.0;
             MeshGeometry3D cube = new MeshGeometry3D();
@@ -80,7 +80,7 @@ namespace Cube1
             // 7
             corners.Add(new Point3D(cx + r, cy - r, cz - r));
             cube.Positions = corners;
-            
+
             Int32[] indices ={
             //front
               0,1,2,
@@ -102,15 +102,28 @@ namespace Cube1
               2,7,3
             };
 
-            
+
             Int32Collection Triangles = new Int32Collection();
             foreach (Int32 index in indices)
             {
                 Triangles.Add(index);
             }
             cube.TriangleIndices = Triangles;
-            return cube;            
+            return cube;
         }
+
+        // poniważ miał być enum :)
+        private enum oriented_axis {OXp, OXm, OYp, OYm, OZp, OZm};
+        private AxisAngleRotation3D[] instarot = {
+            new AxisAngleRotation3D(new Vector3D(1, 0, 0), 90),
+            new AxisAngleRotation3D(new Vector3D(1, 0, 0), -90),
+            new AxisAngleRotation3D(new Vector3D(0, 1, 0), 90),
+            new AxisAngleRotation3D(new Vector3D(0, 1, 0), -90),
+            new AxisAngleRotation3D(new Vector3D(0, 0, 1), 90),
+            new AxisAngleRotation3D(new Vector3D(0, 0, 1), -90),
+        };
+
+        private RotateTransform3D layer_rotation;
         private List<GeometryModel3D> squares;
         private GeometryModel3D ox_3D=null, oy_3D=null, oz_3D=null;
         private Model3DGroup all_to_show, cube_squares;
@@ -167,6 +180,8 @@ namespace Cube1
 
         private void OX_minus_left_click(object sender, RoutedEventArgs e)
         {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OXp];
+
             foreach (GeometryModel3D s in cube_squares.Children)
             {
                 double currDist;
@@ -175,16 +190,20 @@ namespace Cube1
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
                 cP = currMesh.Positions[0];
                 currDist = point_to_plane_dist(1, 0, 0, 0.35, cP.X, cP.Y, cP.Z);
-                if(currDist <= 0.155)
+                if(currDist <= 0.151)
                 {
-                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
-                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
                 }
             }
         }
 
         private void OX_minus_right_click(object sender, RoutedEventArgs e)
         {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OXm];
+
             foreach (GeometryModel3D s in cube_squares.Children)
             {
                 double currDist;
@@ -192,16 +211,20 @@ namespace Cube1
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
                 cP = currMesh.Positions[0];
                 currDist = point_to_plane_dist(1, 0, 0, 0.35, cP.X, cP.Y, cP.Z);
-                if (currDist <= 0.155)
+                if (currDist <= 0.151)
                 {
-                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
-                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
                 }
             }
         }
 
         private void OX_zero_left_click(object sender, RoutedEventArgs e)
         {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OXp];
+
             foreach (GeometryModel3D s in cube_squares.Children)
             {
                 double currDist;
@@ -209,16 +232,20 @@ namespace Cube1
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
                 cP = currMesh.Positions[0];
                 currDist = point_to_plane_dist(1, 0, 0, 0, cP.X, cP.Y, cP.Z);
-                if (currDist <= 0.155)
+                if (currDist <= 0.151)
                 {
-                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
-                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
                 }
             }
         }
 
         private void OX_zero_right_click(object sender, RoutedEventArgs e)
         {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OXm];
+
             foreach (GeometryModel3D s in cube_squares.Children)
             {
                 double currDist;
@@ -226,16 +253,20 @@ namespace Cube1
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
                 cP = currMesh.Positions[0];
                 currDist = point_to_plane_dist(1, 0, 0, 0, cP.X, cP.Y, cP.Z);
-                if (currDist <= 0.155)
+                if (currDist <= 0.151)
                 {
-                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
-                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
                 }
             }
         }
 
         private void OX_plus_left_click(object sender, RoutedEventArgs e)
         {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OXp];
+
             foreach (GeometryModel3D s in cube_squares.Children)
             {
                 double currDist;
@@ -243,16 +274,22 @@ namespace Cube1
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
                 cP = currMesh.Positions[0];
                 currDist = point_to_plane_dist(1, 0, 0, -0.35, cP.X, cP.Y, cP.Z);
-                if (currDist <= 0.155)
+                if (currDist <= 0.151)
                 {
-                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
-                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
                 }
             }
         }
 
+
+
         private void OX_plus_right_click(object sender, RoutedEventArgs e)
         {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OXm];
+
             foreach (GeometryModel3D s in cube_squares.Children)
             {
                 double currDist;
@@ -260,13 +297,279 @@ namespace Cube1
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
                 cP = currMesh.Positions[0];
                 currDist = point_to_plane_dist(1, 0, 0, -0.35, cP.X, cP.Y, cP.Z);
-                if (currDist <= 0.155)
+                if (currDist <= 0.151)
                 {
-                    s.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
-                    s.BackMaterial = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
                 }
             }
         }
+
+
+        private void OY_minus_left_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OYp];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 1, 0, 0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i=0; i<4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OY_minus_right_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OYm];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                s.Transform = null;
+            }
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 1, 0, 0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OY_zero_left_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OYp];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 1, 0, 0, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OY_zero_right_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OYm];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 1, 0, 0, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OY_plus_left_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OYp];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 1, 0, -0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OY_plus_right_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OYm];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 1, 0, -0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+
+        private void OZ_minus_left_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OZp];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 0, 1, 0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OZ_minus_right_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OZm];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 0, 1, 0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OZ_zero_left_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OZp];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 0, 1, 0, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OZ_zero_right_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OZm];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 0, 1, 0, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OZ_plus_left_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OZp];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 0, 1, -0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+        private void OZ_plus_right_click(object sender, RoutedEventArgs e)
+        {
+            layer_rotation.Rotation = instarot[(int)oriented_axis.OZm];
+
+            foreach (GeometryModel3D s in cube_squares.Children)
+            {
+                double currDist;
+                Point3D cP;
+                MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                cP = currMesh.Positions[0];
+                currDist = point_to_plane_dist(0, 0, 1, -0.35, cP.X, cP.Y, cP.Z);
+                if (currDist <= 0.151)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                    }
+                }
+            }
+        }
+
+
+
+
+
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
@@ -313,6 +616,7 @@ namespace Cube1
             camPos = new Point3D(0, 0, 0);
             lookDir = new Vector3D(0, 0, 0);
             upDir = new Vector3D(0, 0, 0);
+            layer_rotation = new RotateTransform3D(instarot[(int)oriented_axis.OXp]);
             azm = 45;
             elev = 45;
             depth = 5.2;
@@ -525,8 +829,7 @@ namespace Cube1
             this.Width = myViewport.Width;
             this.Height = myViewport.Height;
 
-            AxisAngleRotation3D axis = new AxisAngleRotation3D(
-                  new Vector3D(0, 0, 1), 0);
+            AxisAngleRotation3D axis = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 0);
             RotateTransform3D Rotate = new RotateTransform3D(axis);
             
             foreach(GeometryModel3D n in squares) 

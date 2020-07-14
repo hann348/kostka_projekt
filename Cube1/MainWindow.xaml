@@ -36,14 +36,14 @@
                     <ColumnDefinition Width="0.3*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="&lt;-" />
-                <Button Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center" Content="-&gt;" />
+                <Button Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="&lt;-" Click="OY_minus_left_click"/>
+                <Button Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center" Content="-&gt;" Click="OY_minus_right_click" />
                 <Label Content="-" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="24" Width="17"/>
-                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="&lt;-" />
-                <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="-&gt;" />
+                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="&lt;-" Click="OY_zero_left_click"/>
+                <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="-&gt;" Click="OY_zero_right_click" />
                 <Label Content="0" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="24" Width="17"/>
-                <Button Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="&lt;-" />
-                <Button Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="-&gt;" />
+                <Button Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="&lt;-" Click="OY_plus_left_click" />
+                <Button Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="-&gt;" Click="OY_plus_right_click"/>
                 <Label Content="+" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="24" Width="17"/>
             </Grid>
         </GroupBox>
@@ -55,14 +55,14 @@
                     <ColumnDefinition Width="0.3*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="&lt;-" />
-                <Button Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center" Content="-&gt;" />
+                <Button Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="&lt;-" Click="OZ_minus_left_click" />
+                <Button Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center" Content="-&gt;" Click="OZ_minus_right_click"/>
                 <Label Content="-" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Height="24" Width="17"/>
-                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="&lt;-" />
-                <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="-&gt;" />
+                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="&lt;-" Click="OZ_zero_left_click" />
+                <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Content="-&gt;" Click="OZ_zero_right_click"/>
                 <Label Content="0" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="24" Width="17"/>
-                <Button Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="&lt;-" />
-                <Button Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="-&gt;" />
+                <Button Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="&lt;-" Click="OZ_plus_left_click"/>
+                <Button Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="-&gt;" Click="OZ_plus_right_click"/>
                 <Label Content="+" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Bottom" Height="24" Width="17"/>
             </Grid>
         </GroupBox>
