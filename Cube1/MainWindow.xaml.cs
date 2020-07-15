@@ -16,7 +16,8 @@ using System.Windows.Shapes;
 using System.Windows.Media.Media3D;
 using System.Windows.Media.Animation;
 using System.Configuration;
-
+using System.Threading;
+using System.Data;
 
 namespace Cube1
 {
@@ -115,12 +116,12 @@ namespace Cube1
         // poniważ miał być enum :)
         private enum oriented_axis {OXp, OXm, OYp, OYm, OZp, OZm};
         private AxisAngleRotation3D[] instarot = {
-            new AxisAngleRotation3D(new Vector3D(1, 0, 0), 90),
-            new AxisAngleRotation3D(new Vector3D(1, 0, 0), -90),
-            new AxisAngleRotation3D(new Vector3D(0, 1, 0), 90),
-            new AxisAngleRotation3D(new Vector3D(0, 1, 0), -90),
-            new AxisAngleRotation3D(new Vector3D(0, 0, 1), 90),
-            new AxisAngleRotation3D(new Vector3D(0, 0, 1), -90),
+            new AxisAngleRotation3D(new Vector3D(1, 0, 0), 45),
+            new AxisAngleRotation3D(new Vector3D(1, 0, 0), -45),
+            new AxisAngleRotation3D(new Vector3D(0, 1, 0), 45),
+            new AxisAngleRotation3D(new Vector3D(0, 1, 0), -45),
+            new AxisAngleRotation3D(new Vector3D(0, 0, 1), 45),
+            new AxisAngleRotation3D(new Vector3D(0, 0, 1), -45),
         };
 
         private RotateTransform3D layer_rotation;
@@ -130,6 +131,7 @@ namespace Cube1
         private PerspectiveCamera Camera1 = null;
         private Point3D camPos;
         private Vector3D lookDir, upDir;
+        private Viewport3D myViewport;
         private double azm, elev, depth;
 
         private double point_to_plane_dist(double A, double B, double C, double D, double x, double y, double z)
@@ -182,23 +184,65 @@ namespace Cube1
         {
             layer_rotation.Rotation = instarot[(int)oriented_axis.OXp];
 
+            List<GeometryModel3D> selected_layer = new List<GeometryModel3D>();
+
+
             foreach (GeometryModel3D s in cube_squares.Children)
             {
                 double currDist;
                 Point3D cP;
-                // from stack exchange: XXX
+                // from stack exchange: XXX (nie rozumiem dokładnie co robi to "as" i dlaczego nie można "normalnie"
+                // do współrzędnych punktów siatki)
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                // dowolny wierzchołek pola Kostki będzie spełniać odpowiendnie rówanie:
                 cP = currMesh.Positions[0];
+                // selekja pól kostki należących do warstwy, która ma zostać obrócona:
                 currDist = point_to_plane_dist(1, 0, 0, 0.35, cP.X, cP.Y, cP.Z);
-                if(currDist <= 0.151)
+
+                // === aplikujemy transformację dla wierzchołków z wyselekcjonowanej warstwy ===/
+                //    niezły sposób na zanimowanie tego jest pokazany tutaj:
+                //     https://www.syncfusion.com/faq/wpf/animation/how-do-i-apply-an-animation-without-using-a-storyboard
+                if (currDist <= 0.151)
                 {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
-                    }
+                    selected_layer.Add(s);
                 }
             }
+
+            /*
+
+            RotateTransform3D tmp = new RotateTransform3D();
+            tmp.Rotation = instarot[(int)oriented_axis.OXm];
+            instarot[(int)oriented_axis.OXm].Angle = 0;
+
+            
+            foreach (GeometryModel3D s in selected_layer)
+            {
+                s.Transform = tmp;
+            }
+
+            
+            DoubleAnimation Dblanimation = new DoubleAnimation();
+            Dblanimation.From = 0;
+            Dblanimation.To = 90;
+            Dblanimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
+            instarot[(int)oriented_axis.OXm].BeginAnimation(AxisAngleRotation3D.AngleProperty, Dblanimation);
+            */
+
+             foreach (GeometryModel3D s in selected_layer)
+             {
+                  MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
+                  for (int i = 0; i < 4; i++)
+                  {
+                      currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                  }
+             }
+
+    
+
         }
+
+
+
 
         private void OX_minus_right_click(object sender, RoutedEventArgs e)
         {
@@ -335,11 +379,6 @@ namespace Cube1
 
             foreach (GeometryModel3D s in cube_squares.Children)
             {
-                s.Transform = null;
-            }
-
-            foreach (GeometryModel3D s in cube_squares.Children)
-            {
                 double currDist;
                 Point3D cP;
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
@@ -347,9 +386,12 @@ namespace Cube1
                 currDist = point_to_plane_dist(0, 1, 0, 0.35, cP.X, cP.Y, cP.Z);
                 if (currDist <= 0.151)
                 {
-                    for (int i = 0; i < 4; i++)
+                    if (currDist <= 0.151)
                     {
-                        currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            currMesh.Positions[i] = layer_rotation.Transform(currMesh.Positions[i]);
+                        }
                     }
                 }
             }
@@ -818,7 +860,7 @@ namespace Cube1
             ModelVisual3D modelsVisual = new ModelVisual3D();
             modelsVisual.Content = all_to_show;
             
-            Viewport3D myViewport = new Viewport3D();
+            myViewport = new Viewport3D();
             myViewport.Camera = Camera1;
             myViewport.Children.Add(modelsVisual);
             this.Canvas1.Children.Add(myViewport);
@@ -829,6 +871,12 @@ namespace Cube1
             this.Width = myViewport.Width;
             this.Height = myViewport.Height;
 
+
+            // wzorzec dla robienia animacji, z oryginalnego kodu Cube1;
+            // w tej wersji symulatora tego typu animiacje nie będą zastosowane,
+            // ponieważ ich połączenie z transformacjami współrzędnych wierzchołków
+            // pól Kostki jest zbyt czasochłonne
+            /*
             AxisAngleRotation3D axis = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 0);
             RotateTransform3D Rotate = new RotateTransform3D(axis);
             
@@ -836,7 +884,7 @@ namespace Cube1
             {
               //  n.Transform = Rotate;
             }
-            /*
+           
             Square_1.Transform = Rotate;
             Square_2.Transform = Rotate;
             Square_3.Transform = Rotate;
@@ -845,7 +893,7 @@ namespace Cube1
             ox_3D.Transform = Rotate;
             oy_3D.Transform = Rotate;
             oz_3D.Transform = Rotate;
-            */
+            
             DoubleAnimation RotAngle = new DoubleAnimation();
             RotAngle.From = 0;
             RotAngle.To = 360;
@@ -862,6 +910,7 @@ namespace Cube1
             Storyboard RotCube = new Storyboard();
             RotCube.Children.Add(RotAngle);
             RotCube.Begin(Canvas1);
+            */
         }
 
 
