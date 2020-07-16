@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Cube1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Rubik's Cube" Height="600" Width="600" Loaded="Window_Loaded">
+        Title="Rubik's Cube" Height="600" Width="600" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
         <Canvas x:Name="Canvas1" HorizontalAlignment="Center" Height="500" Margin="90,40,10,10" VerticalAlignment="Top" Width="500"/>
         <Slider x:Name="CamSliderHorizontal" HorizontalAlignment="Center" Margin="20,0,0,10" VerticalAlignment="Bottom" Height="20" Width="300" ValueChanged="CamSliderHorizontal_Changed" Minimum="-180" Maximum="180" Value="45" />

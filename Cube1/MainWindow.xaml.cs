@@ -1,30 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using System.Windows.Media.Media3D;
 using System.Windows.Media.Animation;
-using System.Configuration;
-using System.Threading;
-using System.Data;
+
+
+// program zapoczątkowany następującym projektem:
+// https://www.i-programmer.info/projects/38-windows/273-easy-3d.html?start=2
+// TODO: zablokować możliwość zepsucia kostki obrotami, ale jest 23:56 i nie mogę ryzykować kolejhjnym punktem zaliczenia
 
 namespace Cube1
 {
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+   
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -191,7 +184,9 @@ namespace Cube1
             {
                 double currDist;
                 Point3D cP;
-                // from stack exchange: XXX (nie rozumiem dokładnie co robi to "as" i dlaczego nie można "normalnie"
+                // zaczerpnięte stąd: 
+                // https://social.msdn.microsoft.com/Forums/vstudio/en-US/d844d35e-5487-4052-8ecc-1c79494ca69e/getting-the-mesh-position-coordinates-after-rotation?forum=wpf 
+                // (nie rozumiem dokładnie co robi to "as" i dlaczego nie można "normalnie"
                 // do współrzędnych punktów siatki)
                 MeshGeometry3D currMesh = s.Geometry as MeshGeometry3D;
                 // dowolny wierzchołek pola Kostki będzie spełniać odpowiendnie rówanie:
@@ -202,12 +197,15 @@ namespace Cube1
                 // === aplikujemy transformację dla wierzchołków z wyselekcjonowanej warstwy ===/
                 //    niezły sposób na zanimowanie tego jest pokazany tutaj:
                 //     https://www.syncfusion.com/faq/wpf/animation/how-do-i-apply-an-animation-without-using-a-storyboard
+                // ale także nie da się tego dobrze połączyć z "realnymi" transformacjami wierzchołków pól Kostki
+                // oraz nie można zrobić prostej animacji poklatkowej, ponieważ WPF nie oferuje żadnego skutecznego
+                // "refresh()"
                 if (currDist <= 0.151)
                 {
                     selected_layer.Add(s);
                 }
             }
-
+            // różne podejścia do próby połączenia animacji i transformacji - na razie bez powodzenia
             /*
 
             RotateTransform3D tmp = new RotateTransform3D();
@@ -876,13 +874,13 @@ namespace Cube1
             // w tej wersji symulatora tego typu animiacje nie będą zastosowane,
             // ponieważ ich połączenie z transformacjami współrzędnych wierzchołków
             // pól Kostki jest zbyt czasochłonne
-            /*
+           /* 
             AxisAngleRotation3D axis = new AxisAngleRotation3D(new Vector3D(0, 0, 1), 0);
             RotateTransform3D Rotate = new RotateTransform3D(axis);
             
             foreach(GeometryModel3D n in squares) 
             {
-              //  n.Transform = Rotate;
+             //   n.Transform = Rotate;
             }
            
             Square_1.Transform = Rotate;
